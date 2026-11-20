@@ -11,7 +11,7 @@ const expectedMarketplace = {
   icon: 'assets/mini-ide.png',
   description: 'Edit workspace files, review changes and run AI CLI sessions in an independent IDE window.',
   license: 'MIT',
-  repository: 'https://github.com/Navide-dev/Navide',
+  repository: 'https://github.com/Navide-dev/navide-mini-ide',
   categories: ['productivity', 'development'],
 }
 
