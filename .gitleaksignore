@@ -1,0 +1,4 @@
+# A Vue prop binding after a `*-key="…"` attribute (`:width-key="widthKey"
+# :default-width=…`) read as a generic API key; the Navide repository
+# allowlists the same pattern in its .gitleaks.toml.
+c95e046d45a46582459eb05a7653a4b7a319e3ad:src/components/MiniIdeAiDock.vue:generic-api-key:98
