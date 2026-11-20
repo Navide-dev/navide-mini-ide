@@ -26,7 +26,7 @@ describe('navide.mini-ide manifest', () => {
     }
     expect(manifest.schemaVersion).toBe(2)
     expect(manifest.id).toBe('navide.mini-ide')
-    expect(manifest.version).toBe('1.0.10')
+    expect(manifest.version).toBe('1.0.11')
     expect(manifest.marketplace).toEqual(expectedMarketplace)
     expect(manifest.contributes?.views?.find((view) => view.id === 'window')).toMatchObject({
       id: 'window', kind: 'custom', location: 'window', entry: 'frontend/window/index.html',

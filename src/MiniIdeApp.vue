@@ -2521,6 +2521,14 @@ async function disposeViewReceiver(): Promise<void> {
 
 watch([activeKey, activeGroupIsPrimary, () => secondaryGroup.value?.activeKey], syncViewReceiverDetailHosts)
 
+/** An absolute target path is split into the tab's (filepath, wsPath) pair
+ *  instead of being read as workspace-relative, which would open a "not a file"
+ *  tab. A relative path keeps the root the sender gave in file_ws. */
+function resolveOpenTarget(filepath: string, fileWs: string): { filepath: string; wsPath?: string } {
+  if (filepath.startsWith('/')) return splitEditorTarget(filepath, [workspacePath, workspaceRealPath.value])
+  return { filepath, wsPath: fileWs || undefined }
+}
+
 function applyOpenTarget(p: Record<string, string>): void {
   const sidebar = p.sidebar
   if (sidebar === 'explorer' || sidebar === 'search' || sidebar === 'problems') {
@@ -2530,10 +2538,9 @@ function applyOpenTarget(p: Record<string, string>): void {
   if (p.filepath) {
     const line = Number(p.line)
     openFile({
-      filepath: p.filepath,
+      ...resolveOpenTarget(p.filepath, p.file_ws ?? ''),
       name: p.name || undefined,
       line: Number.isFinite(line) && line > 0 ? line : undefined,
-      wsPath: p.file_ws || undefined,
     })
   }
 }
@@ -2577,7 +2584,7 @@ watch(
   { deep: true, immediate: true },
 )
 
-if (workspacePath && initialRel) openFile({ filepath: initialRel, name: initialName, line: initialLine, wsPath: initialFileWs || undefined })
+if (workspacePath && initialRel) openFile({ ...resolveOpenTarget(initialRel, initialFileWs), name: initialName, line: initialLine })
 </script>
 
 <template>
